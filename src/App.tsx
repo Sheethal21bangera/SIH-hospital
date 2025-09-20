@@ -20,6 +20,7 @@ import { AddStaff } from './components/Hospital/AddStaff';
 import { AppointmentManagement } from './components/Hospital/AppointmentManagement';
 import { BillingManagement } from './components/Hospital/BillingManagement';
 import { ViewAllBilling } from './components/Hospital/ViewAllBilling';
+import { ScheduleAppointment } from './components/Hospital/ScheduleAppointment';
 import { PharmacyDashboard } from './components/Pharmacy/PharmacyDashboard';
 import { LabDashboard } from './components/Lab/LabDashboard';
 import { BillingPage } from './components/Billing/BillingPage';
@@ -187,6 +188,14 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute allowedRoles={['hospital']}>
             <ViewAllBilling />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/hospital/schedule-appointment" 
+        element={
+          <ProtectedRoute allowedRoles={['hospital']}>
+            <ScheduleAppointment />
           </ProtectedRoute>
         } 
       />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
@@ -18,6 +19,7 @@ interface Appointment {
 }
 
 export const AppointmentManagement: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [filterDepartment, setFilterDepartment] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
@@ -127,6 +129,7 @@ export const AppointmentManagement: React.FC = () => {
             <h2 className="text-xl font-semibold text-black">Manage Appointments</h2>
           </div>
           <Button>
+            onClick={() => navigate('/hospital/schedule-appointment')}
             <Plus size={16} className="mr-2" />
             Schedule New
           </Button>
