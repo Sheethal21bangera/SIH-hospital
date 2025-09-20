@@ -20,13 +20,9 @@ import { AddStaff } from './components/Hospital/AddStaff';
 import { AppointmentManagement } from './components/Hospital/AppointmentManagement';
 import { BillingManagement } from './components/Hospital/BillingManagement';
 import { ViewAllBilling } from './components/Hospital/ViewAllBilling';
-import { ScheduleAppointment } from './components/Hospital/ScheduleAppointment';
 import { PharmacyDashboard } from './components/Pharmacy/PharmacyDashboard';
 import { LabDashboard } from './components/Lab/LabDashboard';
 import { BillingPage } from './components/Billing/BillingPage';
-import { ReportImageViewer } from './components/Common/ReportImageViewer';
-import { InventoryManagement } from './components/Hospital/InventoryManagement';
-import { EquipmentManagement } from './components/Lab/EquipmentManagement';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles: string[] }> = ({ 
@@ -74,14 +70,6 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute allowedRoles={['doctor']}>
             <PatientDetail />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/report/:reportId" 
-        element={
-          <ProtectedRoute allowedRoles={['doctor', 'patient']}>
-            <ReportImageViewer />
           </ProtectedRoute>
         } 
       />
@@ -193,22 +181,6 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         } 
       />
-      <Route 
-        path="/hospital/schedule-appointment" 
-        element={
-          <ProtectedRoute allowedRoles={['hospital']}>
-            <ScheduleAppointment />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/hospital/inventory" 
-        element={
-          <ProtectedRoute allowedRoles={['hospital', 'pharmacist']}>
-            <InventoryManagement />
-          </ProtectedRoute>
-        } 
-      />
       
       {/* Pharmacy Routes */}
       <Route 
@@ -219,14 +191,6 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         } 
       />
-      <Route 
-        path="/pharmacy/inventory" 
-        element={
-          <ProtectedRoute allowedRoles={['pharmacist']}>
-            <InventoryManagement />
-          </ProtectedRoute>
-        } 
-      />
       
       {/* Lab Routes */}
       <Route 
@@ -234,14 +198,6 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute allowedRoles={['lab_technician']}>
             <LabDashboard />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/lab/equipment" 
-        element={
-          <ProtectedRoute allowedRoles={['lab_technician']}>
-            <EquipmentManagement />
           </ProtectedRoute>
         } 
       />
