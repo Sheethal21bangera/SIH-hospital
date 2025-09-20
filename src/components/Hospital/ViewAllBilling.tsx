@@ -5,6 +5,8 @@ import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { CreditCard, Search, Download, Send, Eye, Calendar, TrendingUp, TrendingDown } from 'lucide-react';
 
+import { enhancedInvoices } from '../../data/enhancedMockData';
+
 interface PaymentRecord {
   id: string;
   invoiceId: string;
@@ -70,51 +72,15 @@ export const ViewAllBilling: React.FC = () => {
   ]);
 
   const invoices = [
-    {
-      id: 'INV-3001',
-      patientName: 'Ravi Kumar',
-      patientId: 'P-1001',
-      amount: 1200,
-      status: 'Unpaid',
-      dueDate: '2025-01-25',
+    ...enhancedInvoices.map(inv => ({
+      id: inv.invoice_id,
+      patientName: inv.patient_name,
+      patientId: inv.patient_id,
+      amount: inv.total_amount,
+      status: inv.payment_status,
+      dueDate: inv.due_date,
       createdDate: '2025-01-15'
-    },
-    {
-      id: 'INV-3002',
-      patientName: 'Meena R.',
-      patientId: 'P-1002',
-      amount: 850,
-      status: 'Paid',
-      dueDate: '2025-01-20',
-      createdDate: '2025-01-10'
-    },
-    {
-      id: 'INV-3003',
-      patientName: 'Arjun P.',
-      patientId: 'P-1003',
-      amount: 2500,
-      status: 'Partial',
-      dueDate: '2025-01-30',
-      createdDate: '2025-01-18'
-    },
-    {
-      id: 'INV-3004',
-      patientName: 'Priya S.',
-      patientId: 'P-1004',
-      amount: 450,
-      status: 'Overdue',
-      dueDate: '2025-01-10',
-      createdDate: '2025-01-05'
-    },
-    {
-      id: 'INV-3005',
-      patientName: 'Sunita K.',
-      patientId: 'P-1005',
-      amount: 300,
-      status: 'Paid',
-      dueDate: '2025-01-19',
-      createdDate: '2025-01-12'
-    }
+    }))
   ];
 
   const filteredData = activeTab === 'invoices' 
