@@ -12,7 +12,7 @@ import { PatientHistory } from './components/Patient/PatientHistory';
 import { PatientReports } from './components/Patient/PatientReports';
 import { PatientAllergies } from './components/Patient/PatientAllergies';
 import { PatientProfile } from './components/Patient/PatientProfile';
-import { HospitalDashboard } from './components/Hospital/HospitalDashboard';
+import HospitalDashboard from './components/Hospital/HospitalDashboard';
 import { PatientRegistration } from './components/Hospital/PatientRegistration';
 import { StaffManagement } from './components/Hospital/StaffManagement';
 import { AddDoctor } from './components/Hospital/AddDoctor';
