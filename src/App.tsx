@@ -18,7 +18,7 @@ import { StaffManagement } from './components/Hospital/StaffManagement';
 import { AddDoctor } from './components/Hospital/AddDoctor';
 import { AddStaff } from './components/Hospital/AddStaff';
 import { AppointmentManagement } from './components/Hospital/AppointmentManagement';
-import { BillingManagement } from './components/Hospital/BillingManagement';
+import BillingManagement from './components/Hospital/BillingManagement';
 import { ViewAllBilling } from './components/Hospital/ViewAllBilling';
 import { ScheduleAppointment } from './components/Hospital/ScheduleAppointment';
 import { PharmacyDashboard } from './components/Pharmacy/PharmacyDashboard';
