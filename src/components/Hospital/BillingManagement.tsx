@@ -14,7 +14,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import Card from '../Common/Card';
-import Button from '../Common/Button';
+import { Button } from '../Common/Button';
 import FormField from '../Common/FormField';
 import Modal from '../Common/Modal';
 

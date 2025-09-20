@@ -10,7 +10,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import Card from '../Common/Card';
-import Button from '../Common/Button';
+import { Button } from '../Common/Button';
 
 interface DashboardStats {
   totalPatients: number;
