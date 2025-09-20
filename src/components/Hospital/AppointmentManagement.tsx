@@ -222,7 +222,7 @@ export const AppointmentManagement: React.FC = () => {
                 </Button>
                 <Button 
                   onClick={handleCancelSchedule}
-                  variant="secondary"
+                  variant="cancel"
                   className="flex-1 bg-black text-white hover:bg-gray-800"
                 >
                   Cancel
