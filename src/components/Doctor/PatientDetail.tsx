@@ -4,14 +4,14 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { User, FileText, TestTube, Activity, AlertCircle, Stethoscope } from 'lucide-react';
-import { mockPatients } from '../../data/mockData';
+import { enhancedPatients } from '../../data/enhancedMockData';
 
 export const PatientDetail: React.FC = () => {
   const { patientId } = useParams<{ patientId: string }>();
   const [activeTab, setActiveTab] = useState('overview');
   const [showActionModal, setShowActionModal] = useState<string | null>(null);
 
-  const patient = mockPatients.find(p => p.patient_id === patientId) || mockPatients[0];
+  const patient = enhancedPatients.find(p => p.patient_id === patientId) || enhancedPatients[0];
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: User },
