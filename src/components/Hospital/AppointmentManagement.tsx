@@ -35,39 +35,39 @@ export const AppointmentManagement: React.FC = () => {
 
   const [appointments, setAppointments] = useState<Appointment[]>([
     {
-      id: 'A-2001', 
-      patientName: 'Arjun P',
+      id: 'A-2001',
+      patientName: 'Arjun P.',
       patientId: 'P-1003',
       doctorName: 'Dr. Mehta',
       department: 'Cardiology',
-      date: '2025-01-20',
-      time: '09:30',
+      date: '2025-09-20',
+      time: '09:30 AM',
       status: 'Scheduled',
-      reason: 'Cardiac consultation',
-      type: 'Regular'
+      reason: 'Follow-up Checkup',
+      type: 'Follow-up'
     },
     {
       id: 'A-2002',
       patientName: 'Ravi Kumar',
       patientId: 'P-1001',
-      doctorName: 'Dr. Iyer',
+      doctorName: 'Dr. Iyer', 
       department: 'Neurology',
-      date: '2025-01-20',
-      time: '11:00',
+      date: '2025-09-20',
+      time: '11:00 AM',
       status: 'Scheduled',
-      reason: 'Headache follow-up',
-      type: 'Follow-up'
+      reason: 'Migraine Evaluation',
+      type: 'Regular'
     },
     {
       id: 'A-2003',
-      patientName: 'Priya S',
+      patientName: 'Priya S.',
       patientId: 'P-1004',
       doctorName: 'Dr. Sharma',
       department: 'Dermatology',
-      date: '2025-01-20',
-      time: '13:15',
+      date: '2025-09-20',
+      time: '01:15 PM',
       status: 'Scheduled',
-      reason: 'Skin consultation',
+      reason: 'Skin Allergy',
       type: 'Regular'
     }
   ]);
@@ -240,6 +240,32 @@ export const AppointmentManagement: React.FC = () => {
       <Header title="Appointment Management" showBackButton />
       
       <div className="max-w-6xl mx-auto p-6">
+        {/* Summary Cards - Moved to Top */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-black">{appointments.length}</h3>
+            <p className="text-gray-600">Total Today</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-blue-600">
+              {appointments.filter(a => a.status === 'Scheduled').length}
+            </h3>
+            <p className="text-gray-600">Scheduled</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-green-600">
+              {appointments.filter(a => a.status === 'Completed').length}
+            </h3>
+            <p className="text-gray-600">Completed</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-red-600">
+              {appointments.filter(a => a.status === 'Cancelled').length}
+            </h3>
+            <p className="text-gray-600">Cancelled</p>
+          </Card>
+        </div>
+
         {/* Appointment Scheduling Section */}
         <Card className="mb-6">
           <div className="flex items-center justify-between mb-6">
@@ -405,32 +431,6 @@ export const AppointmentManagement: React.FC = () => {
             </table>
           </div>
         </Card>
-
-        {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-black">{appointments.length}</h3>
-            <p className="text-gray-600">Total Today</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-blue-600">
-              {appointments.filter(a => a.status === 'Scheduled').length}
-            </h3>
-            <p className="text-gray-600">Scheduled</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-green-600">
-              0
-            </h3>
-            <p className="text-gray-600">Completed</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-red-600">
-              0
-            </h3>
-            <p className="text-gray-600">Cancelled</p>
-          </Card>
-        </div>
       </div>
     </div>
   );
