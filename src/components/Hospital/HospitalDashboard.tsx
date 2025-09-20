@@ -9,7 +9,7 @@ import {
   TrendingUp,
   AlertCircle
 } from 'lucide-react';
-import Card from '../Common/Card';
+import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 
 interface DashboardStats {
