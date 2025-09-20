@@ -4,12 +4,12 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { Calendar, Clock, User, Users, FileText, Search, TestTube, Activity, AlertCircle, Stethoscope } from 'lucide-react';
-import { mockDoctors, mockAppointments, mockPatients } from '../../data/mockData';
+import { enhancedDoctors, enhancedAppointments, enhancedPatients } from '../../data/enhancedMockData';
 import { getPatientHistory, getPatientReports, getPatientAllergies } from '../../data/patientData';
 
 export const DoctorDashboard: React.FC = () => {
   const navigate = useNavigate();
-  const doctor = mockDoctors[0];
+  const doctor = enhancedDoctors[0];
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('overview');
@@ -17,7 +17,7 @@ export const DoctorDashboard: React.FC = () => {
   const [selectedTests, setSelectedTests] = useState<string[]>([]);
   const [requestedTests, setRequestedTests] = useState<{patientId: string, tests: string[], timestamp: string}[]>([]);
 
-  const filteredPatients = mockPatients.filter(patient => 
+  const filteredPatients = enhancedPatients.filter(patient => 
     patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.patient_id.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -319,15 +319,15 @@ export const DoctorDashboard: React.FC = () => {
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span>Total Appointments</span>
-                <span className="font-medium">{mockAppointments.length}</span>
+                <span className="font-medium">{enhancedAppointments.length}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span>Completed</span>
-                <span className="font-medium">8</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.status === 'completed').length}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span>Pending</span>
-                <span className="font-medium">4</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.status === 'scheduled').length}</span>
               </div>
             </div>
           </Card>
@@ -439,12 +439,12 @@ export const DoctorDashboard: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {mockAppointments.map((appointment) => (
+            {enhancedAppointments.map((appointment) => (
               <div
                 key={appointment.appointment_id}
                 className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors"
                 onClick={() => {
-                  const patient = mockPatients.find(p => p.patient_id === appointment.patient_id);
+                  const patient = enhancedPatients.find(p => p.patient_id === appointment.patient_id);
                   if (patient) handlePatientSelect(patient);
                 }}
               >

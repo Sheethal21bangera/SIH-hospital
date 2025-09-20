@@ -15,23 +15,35 @@ interface ReportData {
 }
 
 const reportData: ReportData = {
+  'mri-brain': {
+    title: 'MRI Brain Scan Report',
+    image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    date: '15/01/2025',
+    uploadedBy: 'Lab Technician – Mr. Rao'
+  },
+  'blood-panel': {
+    title: 'Blood Test - Complete Panel',
+    image: 'https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    date: '12/01/2025',
+    uploadedBy: 'Lab Technician – Ms. Priya'
+  },
   'chest-xray': {
     title: 'Chest X-Ray Report',
     image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '20/08/2025',
-    uploadedBy: 'Lab Technician – Mr. Rao'
-  },
-  'cbc': {
-    title: 'CBC Report',
-    image: 'https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '01/09/2025',
-    uploadedBy: 'Lab Technician – Ms. Priya'
-  },
-  'blood-test': {
-    title: 'Blood Test Report',
-    image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '14/09/2025',
+    date: '08/01/2025',
     uploadedBy: 'Lab Technician – Mr. Kumar'
+  },
+  'ecg-report': {
+    title: 'ECG Report',
+    image: 'https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    date: '05/01/2025',
+    uploadedBy: 'Lab Technician – Ms. Sharma'
+  },
+  'ultrasound-abdomen': {
+    title: 'Ultrasound Abdomen Report',
+    image: 'https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    date: '02/01/2025',
+    uploadedBy: 'Lab Technician – Dr. Patel'
   }
 };
 

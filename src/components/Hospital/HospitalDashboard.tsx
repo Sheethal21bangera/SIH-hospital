@@ -4,6 +4,7 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { Users, UserPlus, Calendar, CreditCard, Building } from 'lucide-react';
+import { enhancedPatients, enhancedAppointments, enhancedInvoices } from '../../data/enhancedMockData';
 
 export const HospitalDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -61,36 +62,148 @@ export const HospitalDashboard: React.FC = () => {
             </div>
             
             <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 border rounded-lg">
-                <div>
-                  <h4 className="font-medium">Ravi Kumar</h4>
-                  <p className="text-sm text-gray-600">P-1001 • Registered at 08:45</p>
+              {enhancedPatients.slice(0, 3).map((patient, index) => (
+                <div key={patient.patient_id} className="flex justify-between items-center p-3 border rounded-lg">
+                  <div>
+                    <h4 className="font-medium">{patient.name}</h4>
+                    <p className="text-sm text-gray-600">{patient.patient_id} • Registered today</p>
+                  </div>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                    Active
+                  </span>
                 </div>
-                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
-                  Active
-                </span>
+              ))}
+            </div>
+          </Card>
+
+          <Card>
+            <div className="flex items-center gap-2 mb-4">
+              <Calendar size={20} className="text-blue-600" />
+              <h3 className="font-semibold text-gray-900">Appointment Schedules by Department</h3>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-700">Dermatology</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.reason.includes('skin') || a.reason.includes('rash')).length} appointments</span>
               </div>
-              
-              <div className="flex justify-between items-center p-3 border rounded-lg">
-                <div>
-                  <h4 className="font-medium">Meena R.</h4>
-                  <p className="text-sm text-gray-600">P-1002 • Registered at 09:15</p>
-                </div>
-                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
-                  Active
-                </span>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-700">Neurology</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.reason.includes('Neurology')).length} appointments</span>
               </div>
-              
-              <div className="flex justify-between items-center p-3 border rounded-lg">
-                <div>
-                  <h4 className="font-medium">Arjun P.</h4>
-                  <p className="text-sm text-gray-600">P-1003 • Registered at 10:30</p>
-                </div>
-                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
-                  Active
-                </span>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-700">Cardiology</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.reason.includes('Cardiology')).length} appointments</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-700">Pediatrics</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.reason.includes('Pediatric')).length} appointments</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-700">Orthopedics</span>
+                <span className="font-medium">{enhancedAppointments.filter(a => a.reason.includes('Orthopedic')).length} appointments</span>
               </div>
             </div>
+          </Card>
+        </div>
+
+        {/* Staff Management */}
+        <Card className="mt-6">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <Building size={20} className="text-blue-600" />
+              <h3 className="text-lg font-semibold text-gray-900">Staff Management</h3>
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => navigate('/hospital/add-doctor')}>Add Doctor</Button>
+              <Button size="sm" variant="outline" onClick={() => navigate('/hospital/add-staff')}>Add Staff</Button>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <div className="flex justify-between items-center p-4 border rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Users size={20} className="text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Dr. Ramesh Kumar</h4>
+                  <p className="text-sm text-gray-600">Doctor - Dermatology</p>
+                </div>
+              </div>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                Active
+              </span>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 border rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Users size={20} className="text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Dr. Priya Mehta</h4>
+                  <p className="text-sm text-gray-600">Doctor - Cardiology</p>
+                </div>
+              </div>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                Active
+              </span>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 border rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Users size={20} className="text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Nurse Rekha Sharma</h4>
+                  <p className="text-sm text-gray-600">Senior Nurse - General Ward</p>
+                </div>
+              </div>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                Active
+              </span>
+            </div>
+          </div>
+        </Card>
+
+        {/* Billing Overview */}
+        <Card className="mt-6">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <CreditCard size={20} className="text-blue-600" />
+              <h3 className="text-lg font-semibold text-gray-900">Billing & Payments</h3>
+            </div>
+            <Button size="sm" variant="outline" onClick={() => navigate('/hospital/billing')}>View All</Button>
+          </div>
+          
+          <div className="space-y-3">
+            {enhancedInvoices.slice(0, 3).map((invoice) => (
+              <div key={invoice.invoice_id} className="flex justify-between items-center p-4 border rounded-lg">
+                <div>
+                  <h4 className="font-medium">{invoice.invoice_id} - {invoice.patient_name}</h4>
+                  <p className="text-sm text-gray-600">Due: {invoice.due_date}</p>
+                  invoice.payment_status === 'Paid'
+                <div className="text-right">
+                    : invoice.payment_status === 'Partial'
+                    ? 'bg-yellow-100 text-yellow-800'
+                    : invoice.payment_status === 'Overdue'
+                    ? 'bg-red-100 text-red-800'
+                    : 'bg-yellow-100 text-yellow-800'
+                <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                  {invoice.payment_status}
+                </span>
+              </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
           </Card>
 
           <Card>

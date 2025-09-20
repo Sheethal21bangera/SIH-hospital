@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
-import { TestTube, Upload, FileText, Clock, X, Check, AlertCircle, Calendar, User } from 'lucide-react';
-import { mockTestRequests } from '../../data/mockData';
+import { TestTube, Upload, FileText, Clock, X, Check, AlertCircle, Calendar, User, Settings } from 'lucide-react';
+import { enhancedTestRequests } from '../../data/enhancedMockData';
+import { useNavigate } from 'react-router-dom';
 
 interface TestRequest {
   request_id: string;
@@ -57,12 +58,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 };
 
 export const LabDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [selectedTest, setSelectedTest] = useState<TestRequest | null>(null);
   const [selectedReport, setSelectedReport] = useState<PatientReport | null>(null);
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [testRequests, setTestRequests] = useState<TestRequest[]>([
-    ...mockTestRequests.map(req => ({
+    ...enhancedTestRequests.map(req => ({
       ...req,
       priority: 'Normal' as const,
       doctor: 'Dr. Sharma',
@@ -191,6 +193,45 @@ export const LabDashboard: React.FC = () => {
             <p className="text-sm text-gray-600">Patient Reports</p>
           </Card>
         </div>
+
+        {/* Equipment Status */}
+        <Card className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Settings size={20} className="text-blue-600" />
+              <h3 className="font-semibold text-gray-900">Equipment Status</h3>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate('/lab/equipment')}
+            >
+              Manage Equipment
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex justify-between items-center p-3 bg-green-50">
+              <div>
+                <h4 className="font-medium text-green-900">CBC Analyzer</h4>
+                <p className="text-sm text-green-700">Active - Last maintained: Jan 10</p>
+              </div>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                Active
+              </span>
+            </div>
+            
+            <div className="flex justify-between items-center p-3 bg-yellow-50">
+              <div>
+                <h4 className="font-medium text-yellow-900">MRI Scanner</h4>
+                <p className="text-sm text-yellow-700">Under maintenance</p>
+              </div>
+              <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full">
+                Maintenance
+              </span>
+            </div>
+          </div>
+        </Card>
 
         {/* Test Requests */}
         <Card className="mb-6">

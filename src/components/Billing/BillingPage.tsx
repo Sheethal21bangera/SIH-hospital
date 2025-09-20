@@ -4,11 +4,11 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { CreditCard, Download, Send } from 'lucide-react';
-import { mockInvoices } from '../../data/mockData';
+import { enhancedInvoices } from '../../data/enhancedMockData';
 
 export const BillingPage: React.FC = () => {
   const { invoiceId } = useParams<{ invoiceId: string }>();
-  const invoice = mockInvoices.find(inv => inv.invoice_id === invoiceId) || mockInvoices[0];
+  const invoice = enhancedInvoices.find(inv => inv.invoice_id === invoiceId) || enhancedInvoices[0];
 
   const paymentMethods = ['Cash', 'Card', 'UPI', 'Insurance'];
 

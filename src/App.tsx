@@ -25,6 +25,8 @@ import { PharmacyDashboard } from './components/Pharmacy/PharmacyDashboard';
 import { LabDashboard } from './components/Lab/LabDashboard';
 import { BillingPage } from './components/Billing/BillingPage';
 import { ReportImageViewer } from './components/Common/ReportImageViewer';
+import { InventoryManagement } from './components/Hospital/InventoryManagement';
+import { EquipmentManagement } from './components/Lab/EquipmentManagement';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles: string[] }> = ({ 
@@ -199,6 +201,14 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         } 
       />
+      <Route 
+        path="/hospital/inventory" 
+        element={
+          <ProtectedRoute allowedRoles={['hospital', 'pharmacist']}>
+            <InventoryManagement />
+          </ProtectedRoute>
+        } 
+      />
       
       {/* Pharmacy Routes */}
       <Route 
@@ -209,6 +219,14 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         } 
       />
+      <Route 
+        path="/pharmacy/inventory" 
+        element={
+          <ProtectedRoute allowedRoles={['pharmacist']}>
+            <InventoryManagement />
+          </ProtectedRoute>
+        } 
+      />
       
       {/* Lab Routes */}
       <Route 
@@ -216,6 +234,14 @@ const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute allowedRoles={['lab_technician']}>
             <LabDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/lab/equipment" 
+        element={
+          <ProtectedRoute allowedRoles={['lab_technician']}>
+            <EquipmentManagement />
           </ProtectedRoute>
         } 
       />

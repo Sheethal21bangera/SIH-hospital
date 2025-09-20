@@ -4,6 +4,7 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { Calendar, Clock, User, Filter, Search, Plus, ArrowLeft } from 'lucide-react';
+import { enhancedAppointments, enhancedPatients } from '../../data/enhancedMockData';
 
 interface Appointment {
   id: string;
@@ -34,42 +35,18 @@ export const AppointmentManagement: React.FC = () => {
   });
 
   const [appointments, setAppointments] = useState<Appointment[]>([
-    {
-      id: 'A-2001',
-      patientName: 'Arjun P.',
-      patientId: 'P-1003',
-      doctorName: 'Dr. Mehta',
-      department: 'Cardiology',
-      date: '2025-09-20',
-      time: '09:30 AM',
-      status: 'Scheduled',
-      reason: 'Follow-up Checkup',
-      type: 'Follow-up'
-    },
-    {
-      id: 'A-2002',
-      patientName: 'Ravi Kumar',
-      patientId: 'P-1001',
-      doctorName: 'Dr. Iyer', 
-      department: 'Neurology',
-      date: '2025-09-20',
-      time: '11:00 AM',
-      status: 'Scheduled',
-      reason: 'Migraine Evaluation',
+    ...enhancedAppointments.map(apt => ({
+      id: apt.appointment_id,
+      patientName: apt.patient_name,
+      patientId: apt.patient_id,
+      doctorName: 'Dr. Kumar',
+      department: 'General',
+      date: '2025-01-20',
+      time: apt.time,
+      status: apt.status === 'scheduled' ? 'Scheduled' : apt.status === 'completed' ? 'Completed' : 'Cancelled',
+      reason: apt.reason,
       type: 'Regular'
-    },
-    {
-      id: 'A-2003',
-      patientName: 'Priya S.',
-      patientId: 'P-1004',
-      doctorName: 'Dr. Sharma',
-      department: 'Dermatology',
-      date: '2025-09-20',
-      time: '01:15 PM',
-      status: 'Scheduled',
-      reason: 'Skin Allergy',
-      type: 'Regular'
-    }
+    }))
   ]);
 
   const filteredAppointments = appointments.filter(appointment => {

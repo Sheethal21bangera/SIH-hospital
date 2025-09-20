@@ -167,6 +167,65 @@ export const BillingManagement: React.FC = () => {
             <div className="relative">
               <Search size={16} className="absolute left-3 top-3 text-gray-400" />
               <input
+import { enhancedInvoices } from '../../data/enhancedMockData';
+
+export const BillingManagement: React.FC = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
+  const [filterDateRange, setFilterDateRange] = useState('');
+
+  const [invoices, setInvoices] = useState<Invoice[]>(enhancedInvoices);
+
+  const filteredInvoices = invoices.filter(invoice => {
+    const matchesSearch = !searchTerm || 
+      invoice.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      invoice.patientId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      invoice.id.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesStatus = !filterStatus || invoice.status === filterStatus;
+    
+    return matchesSearch && matchesStatus;
+  });
+
+  const handleStatusChange = (invoiceId: string, newStatus: string) => {
+    setInvoices(prev => prev.map(inv => 
+      inv.id === invoiceId 
+        ? { ...inv, status: newStatus as Invoice['status'] }
+        : inv
+    ));
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Paid': return 'bg-green-100 text-green-800';
+      case 'Unpaid': return 'bg-yellow-100 text-yellow-800';
+      case 'Partial': return 'bg-blue-100 text-blue-800';
+      case 'Overdue': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const statuses = ['Paid', 'Unpaid', 'Partial', 'Overdue'];
+  const totalRevenue = invoices.filter(inv => inv.payment_status === 'Paid').reduce((sum, inv) => sum + inv.total_amount, 0);
+  const pendingAmount = invoices.filter(inv => inv.payment_status !== 'Paid').reduce((sum, inv) => sum + inv.total_amount, 0);
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Header title="Billing Management" showBackButton />
+      
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-2">
+            <CreditCard size={24} className="text-black" />
+            <h2 className="text-xl font-semibold text-black">Billing & Payments</h2>
+        {/* Filters */}
+        <Card className="mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="relative">
+              <Search size={16} className="absolute left-3 top-3 text-gray-400" />
+              <input
                 type="text"
                 placeholder="Search invoices..."
                 value={searchTerm}
@@ -204,7 +263,7 @@ export const BillingManagement: React.FC = () => {
             }}>
               Clear Filters
             </Button>
-          </div>
+        </div>
         </Card>
 
         {/* Invoices Table */}
@@ -247,11 +306,51 @@ export const BillingManagement: React.FC = () => {
                     <td className="py-3 px-4 text-gray-700">{invoice.dueDate}</td>
                     <td className="py-3 px-4 text-gray-700">{invoice.paymentMethod || '-'}</td>
                     <td className="py-3 px-4">
+        {/* Invoices Table */}
+        <Card>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Invoice ID</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Patient</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Amount</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Due Date</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Payment Method</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredInvoices.map((invoice) => (
+                  <tr key={invoice.invoice_id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-3 px-4 font-medium text-gray-900">{invoice.invoice_id}</td>
+                    <td className="py-3 px-4">
+                      <div>
+                        <p className="font-medium text-gray-900">{invoice.patient_name}</p>
+                        <p className="text-sm text-gray-600">{invoice.patient_id}</p>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 font-medium text-gray-900">₹{invoice.total_amount.toLocaleString()}</td>
+                    <td className="py-3 px-4">
+                      <select
+                        value={invoice.payment_status}
+                        onChange={(e) => handleStatusChange(invoice.invoice_id, e.target.value)}
+                        className={`px-2 py-1 text-xs rounded-full border-0 ${getStatusColor(invoice.payment_status)}`}
+                      >
+                        {statuses.map(status => (
+                          <option key={status} value={status}>{status}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="py-3 px-4 text-gray-700">{invoice.due_date}</td>
+                    <td className="py-3 px-4 text-gray-700">-</td>
+                    <td className="py-3 px-4">
                       <div className="flex gap-2">
                         <Button 
                           size="sm" 
                           variant="outline"
-                          onClick={() => navigate(`/billing/invoice/${invoice.id}`)}
+                          onClick={() => navigate(`/billing/invoice/${invoice.invoice_id}`)}
                         >
                           <Eye size={14} className="mr-1" />
                           View

@@ -3,7 +3,7 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { Pill, Package, CheckCircle, AlertTriangle, X, Upload, Calendar, User, FileText, Search, Filter } from 'lucide-react';
-import { mockPrescriptions } from '../../data/mockData';
+import { enhancedPrescriptions } from '../../data/enhancedMockData';
 
 interface Prescription {
   prescription_id: string;
@@ -202,7 +202,7 @@ export const PharmacyDashboard: React.FC = () => {
     if (stored) {
       setPrescriptions(JSON.parse(stored));
     } else {
-      const initialPrescriptions = mockPrescriptions.map(p => ({
+      const initialPrescriptions = enhancedPrescriptions.map(p => ({
         ...p,
         doctor: 'Dr. Smith',
         priority: 'Normal' as const
@@ -509,11 +509,20 @@ export const PharmacyDashboard: React.FC = () => {
           <Card>
             <div className="flex items-center gap-2 mb-4">
               <Package size={20} className="text-blue-600" />
-              <h3 className="font-semibold text-gray-900">Current Stock</h3>
+              <div className="flex items-center justify-between w-full">
+                <h3 className="font-semibold text-gray-900">Current Stock</h3>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => navigate('/pharmacy/inventory')}
+                >
+                  Manage Inventory
+                </Button>
+              </div>
             </div>
             
             <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 border rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-gray-50">
                 <div>
                   <h4 className="font-medium">Paracetamol 500mg</h4>
                   <p className="text-sm text-gray-600">Tablets</p>
@@ -521,7 +530,7 @@ export const PharmacyDashboard: React.FC = () => {
                 <span className="font-medium text-green-600">120 units</span>
               </div>
               
-              <div className="flex justify-between items-center p-3 border rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-gray-50">
                 <div>
                   <h4 className="font-medium">Ibuprofen 200mg</h4>
                   <p className="text-sm text-gray-600">Tablets</p>
@@ -529,7 +538,7 @@ export const PharmacyDashboard: React.FC = () => {
                 <span className="font-medium text-green-600">85 units</span>
               </div>
               
-              <div className="flex justify-between items-center p-3 border rounded-lg bg-orange-50">
+              <div className="flex justify-between items-center p-3 bg-orange-50">
                 <div>
                   <h4 className="font-medium">Amoxicillin 250mg</h4>
                   <p className="text-sm text-gray-600">Capsules</p>
