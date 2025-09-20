@@ -116,13 +116,7 @@ export const DoctorDashboard: React.FC = () => {
                   <span className="px-3 py-1 bg-green-100 text-green-800 text-sm">
                     {report.status}
                   </span>
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                    onClick={() => navigate(`/report/${report.reportId}`)}
-                  >
-                    View
-                  </Button>
+                  <Button size="sm" variant="outline">View</Button>
                 </div>
               </div>
             ))}

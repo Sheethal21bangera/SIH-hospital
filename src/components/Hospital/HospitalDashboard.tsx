@@ -128,8 +128,8 @@ export const HospitalDashboard: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900">Staff Management</h3>
             </div>
             <div className="flex gap-2">
-              <Button size="sm" variant="outline" onClick={() => navigate('/hospital/add-doctor')}>Add Doctor</Button>
-              <Button size="sm" variant="outline" onClick={() => navigate('/hospital/add-staff')}>Add Staff</Button>
+              <Button size="sm" variant="outline">Add Doctor</Button>
+              <Button size="sm" variant="outline">Add Staff</Button>
             </div>
           </div>
           

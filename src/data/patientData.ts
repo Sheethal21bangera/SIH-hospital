@@ -45,24 +45,21 @@ export const getPatientReports = (patientId: string) => {
       date: '20/08/2025',
       uploadedBy: 'Lab Technician – Mr. Rao',
       status: 'Available',
-      imageUrl: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-      reportId: 'chest-xray'
+      imageUrl: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'
     },
     {
       name: 'CBC',
       date: '01/09/2025',
       uploadedBy: 'Lab Technician – Ms. Priya',
       status: 'Available',
-      imageUrl: 'https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-      reportId: 'cbc'
+      imageUrl: 'https://images.pexels.com/photos/7089020/pexels-photo-7089020.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'
     },
     {
       name: 'Blood Test Report',
       date: '14/09/2025',
       uploadedBy: 'Lab Technician – Mr. Kumar',
       status: 'Available',
-      imageUrl: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
-      reportId: 'blood-test'
+      imageUrl: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'
     }
   ];
 };
