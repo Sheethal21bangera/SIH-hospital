@@ -3,11 +3,11 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { User, Phone, Mail, MapPin, Award, Calendar, Clock, Edit3, Save, X } from 'lucide-react';
-import { mockDoctors } from '../../data/mockData';
+import { enhancedDoctors } from '../../data/enhancedMockData';
 
 export const DoctorProfile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [doctorData, setDoctorData] = useState(mockDoctors[0]);
+  const [doctorData, setDoctorData] = useState(enhancedDoctors[0]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -21,7 +21,7 @@ export const DoctorProfile: React.FC = () => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setDoctorData(mockDoctors[0]); // Reset to original data
+    setDoctorData(enhancedDoctors[0]); // Reset to original data
   };
 
   const handleInputChange = (field: string, value: string) => {

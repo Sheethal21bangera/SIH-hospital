@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
@@ -8,6 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export const PatientReports: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const reports = getPatientReports(user?.id || 'P-1001');
 
   return (
@@ -31,7 +33,11 @@ export const PatientReports: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                    <Button variant="confirm" size="sm">
+                    <Button 
+                      variant="confirm" 
+                      size="sm"
+                      onClick={() => navigate(`/report/${report.reportId}`)}
+                    >
                       <Eye size={16} className="mr-2" />
                       View Report
                     </Button>
