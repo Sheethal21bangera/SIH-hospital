@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
-import { Calendar, Clock, User, Filter, Search, Plus, ArrowLeft } from 'lucide-react';
-import { enhancedAppointments, enhancedPatients } from '../../data/enhancedMockData';
+import { Calendar, Clock, User, Filter, Search, Plus } from 'lucide-react';
 
 interface Appointment {
   id: string;
@@ -20,33 +18,60 @@ interface Appointment {
 }
 
 export const AppointmentManagement: React.FC = () => {
-  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [filterDepartment, setFilterDepartment] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [showScheduleForm, setShowScheduleForm] = useState(false);
-  const [scheduleFormData, setScheduleFormData] = useState({
-    patientName: 'Rahul Verma',
-    doctor: 'Dr. Mehta - Cardiology',
-    department: 'Cardiology',
-    date: '2025-09-25',
-    time: '10:45 AM'
-  });
 
   const [appointments, setAppointments] = useState<Appointment[]>([
-    ...enhancedAppointments.map(apt => ({
-      id: apt.appointment_id,
-      patientName: apt.patient_name,
-      patientId: apt.patient_id,
-      doctorName: 'Dr. Kumar',
-      department: 'General',
+    {
+      id: 'A-2001',
+      patientName: 'Ravi Kumar',
+      patientId: 'P-1001',
+      doctorName: 'Dr. Anita Sharma',
+      department: 'Dermatology',
       date: '2025-01-20',
-      time: apt.time,
-      status: apt.status === 'scheduled' ? 'Scheduled' : apt.status === 'completed' ? 'Completed' : 'Cancelled',
-      reason: apt.reason,
+      time: '09:00',
+      status: 'Scheduled',
+      reason: 'Skin rash consultation',
       type: 'Regular'
-    }))
+    },
+    {
+      id: 'A-2002',
+      patientName: 'Meena R.',
+      patientId: 'P-1002',
+      doctorName: 'Dr. Rajesh Kumar',
+      department: 'Neurology',
+      date: '2025-01-20',
+      time: '09:30',
+      status: 'Scheduled',
+      reason: 'Headache follow-up',
+      type: 'Follow-up'
+    },
+    {
+      id: 'A-2003',
+      patientName: 'Arjun P.',
+      patientId: 'P-1003',
+      doctorName: 'Dr. Anita Sharma',
+      department: 'Dermatology',
+      date: '2025-01-20',
+      time: '10:00',
+      status: 'Completed',
+      reason: 'Routine checkup',
+      type: 'Regular'
+    },
+    {
+      id: 'A-2004',
+      patientName: 'Priya S.',
+      patientId: 'P-1004',
+      doctorName: 'Dr. Rajesh Kumar',
+      department: 'Neurology',
+      date: '2025-01-20',
+      time: '11:00',
+      status: 'Cancelled',
+      reason: 'Emergency consultation',
+      type: 'Emergency'
+    }
   ]);
 
   const filteredAppointments = appointments.filter(appointment => {
@@ -69,27 +94,8 @@ export const AppointmentManagement: React.FC = () => {
     ));
   };
 
-  const handleScheduleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setScheduleFormData({
-      ...scheduleFormData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleConfirmAppointment = () => {
-    // Add confirmation animation logic here
-    alert(`Appointment confirmed!\nPatient: ${scheduleFormData.patientName}\nDoctor: ${scheduleFormData.doctor}\nDate: ${scheduleFormData.date} at ${scheduleFormData.time}`);
-    setShowScheduleForm(false);
-  };
-
-  const handleCancelSchedule = () => {
-    setShowScheduleForm(false);
-  };
-
   const departments = ['Dermatology', 'Neurology', 'Cardiology', 'Orthopedics', 'Pediatrics'];
   const statuses = ['Scheduled', 'Completed', 'Cancelled', 'No Show'];
-  const doctorOptions = ['Dr. Mehta - Cardiology', 'Dr. Iyer - Neurology', 'Dr. Sharma - Dermatology'];
-  const departmentOptions = ['Cardiology', 'Neurology', 'Dermatology'];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -109,177 +115,22 @@ export const AppointmentManagement: React.FC = () => {
     }
   };
 
-  // Schedule New Appointment Form
-  if (showScheduleForm) {
-    return (
-      <div className="min-h-screen bg-white">
-        <Header title="Schedule New Appointment" showBackButton />
-        
-        <div className="max-w-4xl mx-auto p-6">
-          <Card>
-            <div className="flex items-center gap-2 mb-6">
-              <button
-                onClick={() => setShowScheduleForm(false)}
-                className="p-2 hover:bg-gray-100 transition-colors"
-              >
-                <ArrowLeft size={20} className="text-black" />
-              </button>
-              <h2 className="text-xl font-semibold text-black">Schedule New Appointment</h2>
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
-                <input
-                  type="text"
-                  name="patientName"
-                  value={scheduleFormData.patientName}
-                  onChange={handleScheduleFormChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Doctor</label>
-                <select
-                  name="doctor"
-                  value={scheduleFormData.doctor}
-                  onChange={handleScheduleFormChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                >
-                  {doctorOptions.map(doctor => (
-                    <option key={doctor} value={doctor}>{doctor}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                <select
-                  name="department"
-                  value={scheduleFormData.department}
-                  onChange={handleScheduleFormChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                >
-                  {departmentOptions.map(dept => (
-                    <option key={dept} value={dept}>{dept}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={scheduleFormData.date}
-                  onChange={handleScheduleFormChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
-                <input
-                  type="text"
-                  name="time"
-                  value={scheduleFormData.time}
-                  onChange={handleScheduleFormChange}
-                  placeholder="10:45 AM"
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                />
-              </div>
-              
-              <div className="flex gap-4 pt-6">
-                <Button 
-                  onClick={handleConfirmAppointment}
-                  className="flex-1 bg-black text-white hover:bg-gray-800 transform hover:scale-105 active:scale-95 transition-transform"
-                >
-                  Confirm
-                </Button>
-                <Button 
-                  onClick={handleCancelSchedule}
-                  variant="cancel"
-                  className="flex-1 bg-black text-white hover:bg-gray-800"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white">
       <Header title="Appointment Management" showBackButton />
       
       <div className="max-w-6xl mx-auto p-6">
-        {/* Summary Cards - Moved to Top */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-black">{appointments.length}</h3>
-            <p className="text-gray-600">Total Today</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-blue-600">
-              {appointments.filter(a => a.status === 'Scheduled').length}
-            </h3>
-            <p className="text-gray-600">Scheduled</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-green-600">
-              {appointments.filter(a => a.status === 'Completed').length}
-            </h3>
-            <p className="text-gray-600">Completed</p>
-          </Card>
-          <Card className="text-center" padding="sm">
-            <h3 className="text-2xl font-bold text-red-600">
-              {appointments.filter(a => a.status === 'Cancelled').length}
-            </h3>
-            <p className="text-gray-600">Cancelled</p>
-          </Card>
-        </div>
-
-        {/* Appointment Scheduling Section */}
-        <Card className="mb-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <Calendar size={24} className="text-black" />
-              <h2 className="text-xl font-semibold text-black">Appointment Scheduling</h2>
-            </div>
-            <Button onClick={() => setShowScheduleForm(true)}>
-              <Plus size={16} className="mr-2" />
-              Schedule New
-            </Button>
-          </div>
-          
-          <div className="space-y-4">
-            {appointments.map((appointment) => (
-              <div key={appointment.id} className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <Clock size={16} className="text-gray-500" />
-                    <span className="font-medium">{appointment.time}</span>
-                  </div>
-                  <span className="text-gray-600">–</span>
-                  <span className="font-medium">Patient: {appointment.patientName}</span>
-                  <span className="text-gray-600">–</span>
-                  <span className="font-medium">Doctor: {appointment.doctorName}</span>
-                  <span className="text-gray-600">–</span>
-                  <span className="text-blue-600 font-medium">{appointment.department}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
         {/* Header */}
-        <Card className="mb-6">
-          <h3 className="text-lg font-semibold text-black mb-4">Manage All Appointments</h3>
-        </Card>
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-2">
+            <Calendar size={24} className="text-black" />
+            <h2 className="text-xl font-semibold text-black">Manage Appointments</h2>
+          </div>
+          <Button>
+            <Plus size={16} className="mr-2" />
+            Schedule New
+          </Button>
+        </div>
 
         {/* Filters */}
         <Card className="mb-6">
@@ -408,6 +259,32 @@ export const AppointmentManagement: React.FC = () => {
             </table>
           </div>
         </Card>
+
+        {/* Summary Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-black">{filteredAppointments.length}</h3>
+            <p className="text-gray-600">Total Today</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-blue-600">
+              {filteredAppointments.filter(a => a.status === 'Scheduled').length}
+            </h3>
+            <p className="text-gray-600">Scheduled</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-green-600">
+              {filteredAppointments.filter(a => a.status === 'Completed').length}
+            </h3>
+            <p className="text-gray-600">Completed</p>
+          </Card>
+          <Card className="text-center" padding="sm">
+            <h3 className="text-2xl font-bold text-red-600">
+              {filteredAppointments.filter(a => a.status === 'Cancelled').length}
+            </h3>
+            <p className="text-gray-600">Cancelled</p>
+          </Card>
+        </div>
       </div>
     </div>
   );

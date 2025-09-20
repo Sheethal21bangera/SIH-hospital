@@ -4,11 +4,11 @@ import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { FormField } from '../Common/FormField';
 import { User, Edit3, Save, X } from 'lucide-react';
-import { enhancedPatients } from '../../data/enhancedMockData';
+import { mockPatients } from '../../data/mockData';
 
 export const PatientProfile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [patientData, setPatientData] = useState(enhancedPatients[0]);
+  const [patientData, setPatientData] = useState(mockPatients[0]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -22,7 +22,7 @@ export const PatientProfile: React.FC = () => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setPatientData(enhancedPatients[0]); // Reset to original data
+    setPatientData(mockPatients[0]); // Reset to original data
   };
 
   const handleInputChange = (field: string, value: string) => {

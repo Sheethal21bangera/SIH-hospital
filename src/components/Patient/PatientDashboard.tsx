@@ -4,12 +4,12 @@ import { Header } from '../Layout/Header';
 import { Card } from '../Common/Card';
 import { Button } from '../Common/Button';
 import { User, Calendar, FileText, CreditCard, TestTube, Pill, AlertTriangle } from 'lucide-react';
-import { enhancedPatients, enhancedDoctors } from '../../data/enhancedMockData';
+import { mockPatients, mockDoctors } from '../../data/mockData';
 
 export const PatientDashboard: React.FC = () => {
   const navigate = useNavigate();
-  const patient = enhancedPatients[0]; // Current patient
-  const assignedDoctor = enhancedDoctors[0]; // Assigned doctor
+  const patient = mockPatients[0]; // Current patient
+  const assignedDoctor = mockDoctors[0]; // Assigned doctor
 
   return (
     <div className="min-h-screen bg-white">
